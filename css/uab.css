@@ -1,0 +1,127 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    background-color: #f1f2f5;
+    font-family: Arial, sans-serif;
+}
+
+header {
+    height: 45px;
+    background-color: #1d1c2b;
+    display: flex;
+    align-items: center;
+    padding: 0 15px;
+    color: white;
+}
+
+/*NOM EMPRESA*/
+header h1 {
+    font-size: 30px;
+    margin: 0;
+}
+
+header h1 a {
+    color: white;
+    text-decoration: none;
+}
+
+.menu {
+    width: 25px;
+    height: 25px;
+    margin-right: 10px;
+    border-radius: 50%;
+    background-color: #b98b61;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 15px;
+}
+
+.buscador {
+    margin-left: auto;
+    display: flex;
+    align-items: center;
+}
+
+.buscador button {
+    height: 25px;
+    border: none;
+    border-radius: 5px;
+    background-color: #b98b61;
+    color: white;
+    font-size: 15px;
+}
+
+.buscador input {
+    width: 200px;
+    height: 25px;
+    margin: 0 3px;
+    border: none;
+    border-radius: 5px;
+}
+
+.carrusel {
+    height: 450px;
+    margin: 0 20px;
+    background-color: #56677f;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+}
+
+/*no estoy segura como hacer que sea todo el fondo y no solo una zona,
+pero de momento se queda asi*/
+.contingut {
+    background-color: #fae9dc;
+    padding: 27px 8%;
+}
+
+
+/* TÍTULO */
+.contingut h3 {
+    height: 30px;
+    background-color: #b98b61;
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 11px;
+    font-weight: normal;
+}
+
+
+.productes {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 18px 30px;
+}
+
+
+.producte {
+    display: flex;
+    gap: 10px;
+    min-width: 0;
+}
+
+
+/* IMAGEN */
+
+.imatge {
+    width: 250px;
+    height: 250px;
+    flex-shrink: 0;
+    background-color: #56677f;
+    border-radius: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+footer {
+    height: 150px;
+    background-color: #1d1c2b;
+}
