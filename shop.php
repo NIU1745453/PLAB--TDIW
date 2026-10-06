@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/> 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title> Veleria </title> 
+        <link rel="stylesheet" type="text/css" href="css/uab.css">
+        <script src="js/funcions.js"></script>
+    </head>
+    <body>
+        <header>
+
+            <div class="menu">
+                <button>Menu</button> <!--vincularlo a la img q toca-->
+            </div>
+            <h1>
+                <a href="#">Nom de l'empresa</a>
+            </h1>
+
+            <div class="buscador">
+                <button>Search</button>
+                <input type="text">
+                <button>log in</button>
+            </div>
+        </header>
+            <?php
+                $info = $_POST['idk'];
+                // Aquí va el código PHP para mostrar los productos de la tienda
+            ?>
+        <footer>
+            <p>
+                links a xx + img.logo
+            </p>
+        </footer>
+    </body>
+</html>
