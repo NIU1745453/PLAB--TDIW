@@ -1,103 +1,124 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8"/> 
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title> Veleria </title> 
-        <link rel="stylesheet" type="text/css" href="css/uab.css">
-        <script src="js/funcions.js"></script>
-    </head>
-    <body>
-        <header>
+<html lang="es">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-            <div class="menu">
-                <button>Menu</button> <!--vincularlo a la img q toca-->
+    <title>Veleria</title>
+
+    <link rel="stylesheet" href="css/uab.css">
+    <script src="js/functions.js" defer></script>
+</head>
+
+<body>
+    <header>
+        <div class="menu">
+            <button
+                id="menuButton"
+                type="button"
+                aria-label="Mostrar categorías"
+                aria-expanded="false"
+                aria-controls="menuCategorias">
+                ☰
+            </button>
+
+            <div id="menuCategorias" class="menu-categorias" hidden>
+                <p>Categorías</p>
+                <div id="categories">
+                    <span>Cargando categorías...</span>
+                </div>
             </div>
-            <h1>
-                <a href="#">Nom de l'empresa</a>
-            </h1>
+        </div>
 
-            <div class="buscador">
-                <button>Search</button>
-                <input type="text">
-                <button>log in</button>
-            </div>
-        </header>
+        <h1>
+            <a href="index.html">Veleria</a>
+        </h1>
 
-        <section class="carrusel">
-            <p>Carrousel</p>
-        </section>
+        <div class="buscador">
+            <button type="button">Search</button>
+            <input type="text" aria-label="Buscar productos">
 
-        <section class="contingut">
-            <h2>Lo mas vendido</h2>
-            <div class="productes">
+            <button type="button" id="botonLogin">
+                Log in
+            </button>
+        </div>
+    </header>
 
-                <article class="prod1">
-                    <div class="imatge">
-                        <p>imagen</p>
-                    </div>
+    <section class="carrusel">
+        <img
+            id="imagenCarrusel"
+            src="./img_carrousel/img1.jpg"
+            alt="Imagen destacada de Veleria">
 
-                    <p>
-                        INSERT DESC HERE
-                    </p>
-                </article>
+        <button
+            type="button"
+            id="anterior"
+            class="flecha anterior"
+            aria-label="Imagen anterior">
+            &#10094;
+        </button>
 
-                <article class="prod2">
-                    <div class="imatge">
-                        <p>imagen</p>
-                    </div>
+        <button
+            type="button"
+            id="siguiente"
+            class="flecha siguiente"
+            aria-label="Imagen siguiente">
+            &#10095;
+        </button>
+    </section>
 
-                    <p>
-                        INSERT DESC HERE
-                    </p>
-                </article>
+    <section class="contingut">
+        <h2 id="tituloProductos">Lo más vendido</h2>
 
-                <article class="prod3">
-                    <div class="imatge">
-                        <p>imagen</p>
-                    </div>
+        <div id="product-list" class="productes">
+            <article class="prod1">
+                <div class="img">
+                    <img src="img/img1.jpg" alt="Producto 1">
+                </div>
+                <p>Descripción del producto 1</p>
+            </article>
 
-                    <p>
-                        INSERT DESC HERE
-                    </p>
-                </article>
+            <article class="prod2">
+                <div class="img">
+                    <img src="img/img2.jpg" alt="Producto 2">
+                </div>
+                <p>Descripción del producto 2</p>
+            </article>
 
-                <article class="prod1">
-                    <div class="imatge">
-                        <p>imagen</p>
-                    </div>
+            <article class="prod3">
+                <div class="img">
+                    <img src="img/img3.jpg" alt="Producto 3">
+                </div>
+                <p>Descripción del producto 3</p>
+            </article>
 
-                    <p>
-                        INSERT DESC HERE
-                    </p>
-                </article>
+            <article class="prod4">
+                <div class="img">
+                    <img src="img/img4.jpg" alt="Producto 4">
+                </div>
+                <p>Descripción del producto 4</p>
+            </article>
 
-                <article class="prod2">
-                    <div class="imatge">
-                        <p>imagen</p>
-                    </div>
+            <article class="prod5">
+                <div class="img">
+                    <img src="img/img5.jpg" alt="Producto 5">
+                </div>
+                <p>Descripción del producto 5</p>
+            </article>
 
-                    <p>
-                        INSERT DESC HERE
-                    </p>
-                </article>
-
-                <article class="prod3">
-                    <div class="imatge">
-                        <p>imagen</p>
-                    </div>
-
-                    <p>
-                        INSERT DESC HERE
-                    </p>
-                </article>
-            </div>
-        </section>
-
-        <footer>
-            <p>
-                links a xx + img.logo
-            </p>
-        </footer>
-    </body>
+            <article class="prod6">
+                <div class="img">
+                    <img src="img/img6.jpg" alt="Producto 6">
+                </div>
+                <p>Descripción del producto 6</p>
+            </article>
+        </div>
+    </section>
+    <main>
+        
+    </main>
+    <footer>
+        <p>Links e imagen del logo</p>
+    </footer>
+</body>
 </html>

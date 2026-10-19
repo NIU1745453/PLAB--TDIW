@@ -9,44 +9,45 @@
     </head>
     <body>
         <header>
-
             <div class="menu">
-                <button>Menu</button> <!--vincularlo a la img q toca-->
+                <button
+                    id="menuButton"
+                    type="button"
+                    aria-label="Mostrar categorías"
+                    aria-expanded="false"
+                    aria-controls="menuCategorias">
+                    ☰
+                </button>
+
+                <div id="menuCategorias" class="menu-categorias" hidden>
+                    <p>Categorías</p>
+                    <div id="categories">
+                        <span>Cargando categorías...</span>
+                    </div>
+                </div>
             </div>
+
             <h1>
-                <a href="#">Nom de l'empresa</a>
+                <a href="index.html">Veleria</a>
             </h1>
 
             <div class="buscador">
-                <button>Search</button>
-                <input type="text">
-                <button>log in</button>
+                <button type="button">Search</button>
+                <input type="text" aria-label="Buscar productos">
+
+                <button type="button" id="botonLogin">
+                    Log in
+                </button>
             </div>
         </header>
+        <main>
             <?php
-                require_once __DIR__.'/php/connectaDb.php'; // el __DIR__ és una constant que retorna la ruta absoluta del directori on es troba el fitxer actual.
-
+                require_once __DIR__.'/php/controlador-shop.php'; // el __DIR__ és una constant que retorna la ruta absoluta del directori on es troba el fitxer actual.
+                show_shop();
                 // Aquí va el codi PHP per mostar per html cada producte.
-                $conn = conectaDb();
-                $sql = "SELECT * FROM producte"; // Consulta sql dels productes
-                $result = pg_query($conn, $sql);
-                $products = pg_fetch_all($result);
-                foreach ($products as $product) 
-                {
-                    $nom_producte = $product['nom']; 
-                    $descripcio = $product['descripcio'];
-                    $img = $product['img']; // Ruta de la imatge del producte
-                    echo "
-                    <div class='producte'>
-                        <img src='$img' alt='imagen $nom_producte'/>
-                        <h5>$nom_producte</h5>
-                        <p>$descripcio</p>
-                        <a href=''>
-                            <img src='carrito.png'/>
-                        </a>
-                    </div>";
-                }
+                
             ?>
+        </main>
         <footer>
             <p>
                 links a xx + img.logo
