@@ -22,10 +22,9 @@ VALUES (
 );
 
 INSERT INTO categoria (nom, descripcio) VALUES
-('Electrònica', 'Dispositius electrònics'),
-('Informàtica', 'Ordinadors i perifèrics'),
-('Accessoris', 'Accessoris tecnològics'),
-('Videojocs', 'Jocs i consoles');
+('Aromàtica', 'Espelma aromàtica o perfumada'),
+('Decorativa', 'Dissenyada per ser llamativa'),
+('Torre', 'Decorativa');
 
 -- ========================================
 -- INSERTS: PRODUCTE
@@ -34,8 +33,8 @@ INSERT INTO categoria (nom, descripcio) VALUES
 INSERT INTO producte
 (preu, nom, descripcio, imatge, actiu,id_categoria)
 VALUES
-(299.99, 'Auriculars Bluetooth', 'Auriculars sense fils', 'dawd', TRUE, 9),
-(599.99, 'Smartphone', 'Telefon intel·ligent', 'dawd', TRUE, 10),
+(50, 'Cravo e canela', 'Espelma perfumada amb olor a clavell', 'https://images.pexels.com/photos/29737853/pexels-photo-29737853.jpeg', TRUE, 9),
+(599.99, 'Volkov', 'Espelma sobre vidre amb aroma a herbes aromàtiques', 'https://images.pexels.com/photos/29534199/pexels-photo-29534199.jpeg', TRUE, 9),
 (899.99, 'Portatil', 'Ordinador portatil', 'dawd', TRUE, 11),
 (49.99, 'Ratoli gaming', 'Ratoli per jugar', 'dawd', TRUE, 12),
 (19.99, 'Alfombreta', 'Alfombreta per al ratoli', 'dawd', TRUE, 12),
