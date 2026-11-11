@@ -34,12 +34,10 @@ INSERT INTO producte
 (preu, nom, descripcio, imatge, actiu,id_categoria)
 VALUES
 (50, 'Cravo e canela', 'Espelma perfumada amb olor a clavell', 'https://images.pexels.com/photos/29737853/pexels-photo-29737853.jpeg', TRUE, 9),
-(599.99, 'Volkov', 'Espelma sobre vidre amb aroma a herbes aromàtiques', 'https://images.pexels.com/photos/29534199/pexels-photo-29534199.jpeg', TRUE, 9),
-(899.99, 'Portatil', 'Ordinador portatil', 'dawd', TRUE, 11),
-(49.99, 'Ratoli gaming', 'Ratoli per jugar', 'dawd', TRUE, 12),
-(19.99, 'Alfombreta', 'Alfombreta per al ratoli', 'dawd', TRUE, 12),
-(69.99, 'Videojoc', 'Joc per a consola', 'dawd', TRUE, 9);
-
+(29.50, 'Volkov', 'Espelma sobre vidre amb aroma a herbes aromàtiques', 'https://images.pexels.com/photos/29534199/pexels-photo-29534199.jpeg', TRUE, 9),
+(30, 'Espelma Bolovtsova', 'Espelma decorativa', 'https://images.pexels.com/photos/6311869/pexels-photo-6311869.jpeg', TRUE, 10),
+(49.99, 'Espelma torre Ince', 'Espelma decorativa alta', 'https://images.pexels.com/photos/10883607/pexels-photo-10883607.jpeg', TRUE, 11),
+(19.99, 'Sena', 'Espelma color fosc llamatiu', 'https://images.pexels.com/photos/9981052/pexels-photo-9981052.jpeg', TRUE, 10);
 -- ========================================
 -- INSERTS: COMANDA
 -- ========================================
