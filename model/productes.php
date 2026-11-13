@@ -1,6 +1,8 @@
 <?php
+    require_once __DIR__ . '/connectaBd.php';
+    
     function get_productes($idCategoria) {
-        $conn = conectaDb();
+        $conn = conectaBd();
 
         //$idCategoria = $_GET['id_categoria'] ?? '';
 
