@@ -5,7 +5,7 @@
     $password = $_POST['password'] ?? '';
 
     $user = get_usuari_per_email($email);
-    if ($user === NULL) {
+    if (!$user) {
         echo 'Usuari no trobat';
     } else {
         if (password_verify($password, $user['password'])) {

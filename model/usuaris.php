@@ -13,16 +13,12 @@
             return null;
         }
 
-        return pg_fetch_assoc($result) ?: null;
+        return pg_fetch_assoc($result) ?: false;
     }
 
     function registrar_usuari($nom, $cognoms, $email, $password_hash, $codi_postal, $direccio, $aniversari)
     {
         $conn = conectaBd();
-
-        if(!isset($nom, $cognoms, $email, $password_hash, $codi_postal, $direccio, $aniversari)) {
-            return false;
-        }
 
         $sql = 'INSERT INTO usuari (nom, cognoms, email, password, codi_postal, direccio, aniversari) VALUES ($1, $2, $3, $4, $5, $6, $7)';
 

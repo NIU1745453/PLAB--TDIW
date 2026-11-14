@@ -1,7 +1,7 @@
 <main class="login-container">
     <form id="formLogin" class="login-form">
         <h2>Inicia sessió</h2>
-        <p>Introdueix les teves daddes per accedir al teu compte.</p>
+        <p>Introdueix les teves dades per accedir al teu compte.</p>
 
         <label for="email">Correu:</label>
         <input
