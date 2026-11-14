@@ -10,7 +10,7 @@ function get_categories() {
         $result = pg_query($conn, $sql);
 
         if ($result === false) {
-            echo 'Error al consultar productes';
+            echo 'Error al consultar categories';
             return [];
         }
 

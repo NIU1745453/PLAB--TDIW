@@ -27,8 +27,8 @@
                 <div id="categories">
                     <ul>
                         <li><a href="index.php">Inici</a></li>
-                        <li><a href="index.php?accio='registrarse'">Registrar-se</a></li>
-                        <li><a href="index.php?accio='login'">Login</a></li>
+                        <li><a href="index.php?accio=registre">Registrar-se</a></li>
+                        <li><a href="index.php?accio=login">Login</a></li>
                     </ul>
                     <!--<span>Cargando categorías...</span>-->
                 </div>
@@ -36,7 +36,7 @@
         </div>
 
         <h1>
-            <a href="index.html">Veleria</a>
+            <a href="index.php">Veleria</a>
         </h1>
 
         <!--<div class="buscador">

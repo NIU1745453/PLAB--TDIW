@@ -42,9 +42,61 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
+
+    // Consulta AJAX per carregar productes per categoria
+    const llista = document.getElementById("product-list");
+
+    if (llista) {
+        // Un sol listener per a tot el contingut de #product-list (delegació d'events).
+        // Funciona amb elements afegits després per fetch (productes, detall, botons).
+        llista.addEventListener("click", function (e) {
+
+            // 1. Clic en una categoria -> carregar els seus productes
+            const enllac = e.target.closest(".link-categoria");
+            if (enllac) {
+                e.preventDefault(); // Evitem que l'enllaç recarregui la pàgina
+                carregarProductes(enllac.dataset.categoria);
+                return;
+            }
+
+            // 2. Clic al botó "Afegir a la cistella" (de moment només el mostrem per consola)
+            //    Es comprova abans que .producte per si algun dia el botó està dins d'una targeta.
+            const boto = e.target.closest(".afegir-cistella");
+            if (boto) {
+                console.log("Afegir a la cistella el producte", boto.dataset.id);
+                return;
+            }
+
+            // 3. Clic al botó "Tornar" -> tornar a la llista de la categoria actual
+            if (e.target.closest(".tornar")) {
+                carregarProductes(categoriaActual);
+                return;
+            }
+
+            // 4. Clic en un producte de la llista -> carregar el seu detall
+            const producte = e.target.closest(".producte");
+            if (producte) {
+                carregarDetall(producte.dataset.id);
+                return;
+            }
+        });
+    }
+
 });
 
-async function toggleMenu() 
+// Categoria que s'està mostrant ara mateix (la fa servir el botó "Tornar").
+// Si la pàgina s'ha carregat directament (index.php?accio=llistar-productes&categoria=X),
+// la llegim del títol que ha posat el PHP.
+let categoriaActual = null;
+
+document.addEventListener("DOMContentLoaded", function () {
+    const titol = document.getElementById("tituloProductos");
+    if (titol && new URLSearchParams(location.search).has("categoria")) {
+        categoriaActual = titol.textContent.trim();
+    }
+});
+
+function toggleMenu() 
 {
     const menu = document.getElementById("menuCategorias");
     const button = document.getElementById("menuButton");
@@ -55,42 +107,58 @@ async function toggleMenu()
     button.setAttribute("aria-expanded", !abierto);
 }
 
-function carrusel_next()
-{
+async function carregarProductes(categoria) {
+    const llista = document.getElementById("product-list");
+    const titol = document.getElementById("tituloProductos");
 
-}
-
-/*
-async function cargarCategorias() {
-
-    const categories = document.getElementById("categories");
-
-    if (categories.dataset.loaded === "true") {
-        return;
-    }
+    llista.textContent = "Carregant productes...";
 
     try {
-        const response = await fetch("../controller/llistar_categories.php");
+        const response = await fetch(
+            "index.php?accio=ajax-productes&categoria=" + encodeURIComponent(categoria)
+        );
 
         if (!response.ok) {
-            throw new Error("Error AJAX");
+            throw new Error("Error HTTP " + response.status);
         }
 
-        const datos = await response.json();
+        const html = await response.text();
+        llista.innerHTML = html;
+        if (titol) titol.textContent = categoria;
 
-        categories.innerHTML = "";
-
-        datos.forEach(categoria => {
-            const elemento = document.createElement("p");
-            elemento.textContent = categoria.nombre;
-
-            categories.appendChild(elemento);
-        });
-
-        categories.dataset.loaded = "true";
+        // Recordem la categoria per poder-hi tornar des del detall
+        categoriaActual = categoria;
 
     } catch (error) {
         console.error(error);
-        categories.textContent = "Error al cargar categorías";
+        llista.textContent = "Error al carregar els productes.";
     }
-}*/
+}
+
+/**
+ * Demana al servidor el detall d'un producte i el mostra a #product-list.
+ * El servidor (index.php?accio=ajax-detall-producte) retorna un fragment HTML
+ * generat per la vista views/detall_producte.php.
+ */
+async function carregarDetall(id) {
+    const llista = document.getElementById("product-list");
+
+    llista.textContent = "Carregant producte...";
+
+    try {
+        const response = await fetch(
+            "index.php?accio=ajax-detall-producte&id=" + encodeURIComponent(id)
+        );
+
+        // Si el producte no existeix, el controlador retorna 404 -> response.ok és false
+        if (!response.ok) {
+            throw new Error("Error HTTP " + response.status);
+        }
+
+        llista.innerHTML = await response.text();
+
+    } catch (error) {
+        console.error(error);
+        llista.textContent = "Error al carregar el producte.";
+    }
+}

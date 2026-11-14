@@ -1,16 +1,40 @@
 <?php
-    require_once __DIR__ . '/resource_menu.php';
     $accio = $_GET['accio'] ?? NULL;
+
+    $ajax = NULL;     // fragment for fetch (no menu or footer)
+    $pagina = NULL;   // full page (inside the layout)
+
     switch ($accio) {
-        case 'llistar-categories':
-            require_once __DIR__ . '/resource_llistar_categories.php';
+        // --- AJAX: fragments only ---
+        case 'ajax-productes':
+            $ajax = 'controller/llistar_productes.php';
+            break;
+        case 'ajax-detall-producte':
+            $ajax = 'controller/detall_producte.php';
+            break;
+
+        // --- Normal pages ---
+        case 'login':
+            $pagina = 'resource_login.php';
+            break;
+        case 'registre':
+            $pagina = 'resource_registre.php';
             break;
         case 'llistar-productes':
-            require_once __DIR__ . '/resource_llistar_productes.php';
+            $pagina = 'resource_llistar_productes.php';
             break;
         default:
-            require_once __DIR__.'/resource_portada.php';
+            $pagina = 'resource_portada.php';
             break;
     }
-    require_once __DIR__ . '/resource_footer.php';
+
+    if ($ajax) {
+        require __DIR__ . '/' . $ajax;   // only the fragment
+        exit;
+    }
+
+    require __DIR__ . '/resource_menu.php';    // layout: top
+    require __DIR__ . '/' . $pagina;           // what changes
+    require __DIR__ . '/resource_footer.php';  // layout: bottom
+
 ?>

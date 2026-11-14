@@ -5,7 +5,11 @@ foreach ($categories as $categoria): ?>
     <div class="img">
         <img src="img/img<?= $i ?>.jpg" alt="Producte <?= $i ?>">
     </div>
-    <h3><a href="llistar_productes.php?id_categoria=<?= $categoria['id_categoria'] ?>"><?= $categoria['nom'] ?></a></h3>
+    <h3>
+        <a class="link-categoria"
+            href="index.php?accio=llistar-productes&categoria=<?= urlencode($categoria['nom']) ?>"
+            data-categoria="<?= htmlspecialchars($categoria['nom']) ?>"><?= htmlspecialchars($categoria['nom']) ?></a>
+    </h3>
     <p><?= $categoria['descripcio']?></p>
 </article>
 <?php $i +=1 ?>

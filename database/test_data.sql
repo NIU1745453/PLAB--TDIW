@@ -21,23 +21,23 @@ VALUES (
     '1234'
 );
 
-INSERT INTO categoria (id_categoria, nom, descripcio) VALUES
-(1,'Aromàtica', 'Espelma aromàtica o perfumada'),
-(2,'Decorativa', 'Dissenyada per ser llamativa'),
-(3,'Torre', 'Decorativa');
+INSERT INTO categoria (nom, descripcio) VALUES
+('Aromàtica', 'Espelma aromàtica o perfumada'),
+('Decorativa', 'Dissenyada per ser llamativa'),
+('Torre', 'Decorativa');
 
 -- ========================================
 -- INSERTS: PRODUCTE
 -- ========================================
 
 INSERT INTO producte
-(id_producte, preu, nom, descripcio, imatge, actiu,id_categoria)
+(preu, nom, descripcio, imatge, actiu, id_categoria)
 VALUES
-(1, 50, 'Cravo e canela', 'Espelma perfumada amb olor a clavell', 'https://images.pexels.com/photos/29737853/pexels-photo-29737853.jpeg', TRUE, (SELECT id_categoria FROM categoria WHERE nom = 'Aromàtica')),
-(2, 29.50, 'Volkov', 'Espelma sobre vidre amb aroma a herbes aromàtiques', 'https://images.pexels.com/photos/29534199/pexels-photo-29534199.jpeg', TRUE, (SELECT id_categoria FROM categoria WHERE nom = 'Aromàtica')),
-(3, 30, 'Espelma Bolovtsova', 'Espelma decorativa', 'https://images.pexels.com/photos/6311869/pexels-photo-6311869.jpeg', TRUE, (SELECT id_categoria FROM categoria WHERE nom = 'Decorativa')),
-(4, 49.99, 'Espelma torre Ince', 'Espelma decorativa alta', 'https://images.pexels.com/photos/10883607/pexels-photo-10883607.jpeg', TRUE, (SELECT id_categoria FROM categoria WHERE nom = 'Torre')),
-(5, 19.99, 'Sena', 'Espelma color fosc llamatiu', 'https://images.pexels.com/photos/9981052/pexels-photo-9981052.jpeg', TRUE, (SELECT id_categoria FROM categoria WHERE nom = 'Decorativa'));
+(50, 'Cravo e canela', 'Espelma perfumada amb olor a clavell', 'https://images.pexels.com/photos/29737853/pexels-photo-29737853.jpeg', TRUE, (SELECT id_categoria FROM categoria WHERE nom = 'Aromàtica')),
+(29.50, 'Volkov', 'Espelma sobre vidre amb aroma a herbes aromàtiques', 'https://images.pexels.com/photos/29534199/pexels-photo-29534199.jpeg', TRUE, (SELECT id_categoria FROM categoria WHERE nom = 'Aromàtica')),
+(30, 'Espelma Bolovtsova', 'Espelma decorativa', 'https://images.pexels.com/photos/6311869/pexels-photo-6311869.jpeg', TRUE, (SELECT id_categoria FROM categoria WHERE nom = 'Decorativa')),
+(49.99, 'Espelma torre Ince', 'Espelma decorativa alta', 'https://images.pexels.com/photos/10883607/pexels-photo-10883607.jpeg', TRUE, (SELECT id_categoria FROM categoria WHERE nom = 'Torre')),
+(19.99, 'Sena', 'Espelma color fosc llamatiu', 'https://images.pexels.com/photos/9981052/pexels-photo-9981052.jpeg', TRUE, (SELECT id_categoria FROM categoria WHERE nom = 'Decorativa'));
 -- ========================================
 -- INSERTS: COMANDA
 -- ========================================

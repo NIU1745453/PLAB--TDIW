@@ -36,7 +36,7 @@ CREATE TABLE producte
   nom          text    NOT NULL,
   preu         float   NOT NULL,
   descripcio   text   ,
-  imatge       bytea   NOT NULL,
+  imatge       text    NOT NULL,
   actiu        BOOLEAN NOT NULL,
   id_categoria integer NOT NULL,
   PRIMARY KEY (id_producte)
@@ -50,9 +50,10 @@ CREATE TABLE usuari
   aniversari  DATE   ,
   email       text    NOT NULL,
   password    text    NOT NULL,
-  codi_postal NUMERIC,
+  codi_postal text,
   direccio    text   ,
-  PRIMARY KEY (id_user)
+  PRIMARY KEY (id_user),
+  UNIQUE (email)
 );
 
 ALTER TABLE producte
