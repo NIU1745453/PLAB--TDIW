@@ -1,8 +1,8 @@
 <?php
-require_once __DIR__ . '/connectaDb.php';
+require_once __DIR__ . '/connectaBd.php';
 
 function get_categories() {
-        $conn = conectaDb();
+        $conn = conectaBd();
         $sql = 'SELECT id_categoria, nom, descripcio
                 FROM categoria
                 ORDER BY id_categoria';
@@ -10,7 +10,7 @@ function get_categories() {
         $result = pg_query($conn, $sql);
 
         if ($result === false) {
-            echo 'Error al consultar productes';
+            echo 'Error al consultar categories';
             return [];
         }
 

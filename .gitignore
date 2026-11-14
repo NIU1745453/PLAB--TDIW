@@ -1,2 +1,3 @@
-connectaDb.php
 .env
+config.php
+connectaBd.php

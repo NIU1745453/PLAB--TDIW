@@ -3,69 +3,6 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("JavaScript cargado correctamente");
 
     // =========================
-    // REFERENCIAS AL DOM (declaradas una sola vez)
-    // =========================
-
-    const productosContainer  = document.getElementById("product-list");
-    const categoriasContainer = document.getElementById("categories");
-    const tituloProductos     = document.getElementById("tituloProductos");
-    const menuButton          = document.getElementById("menuButton");
-    const menuCategorias      = document.getElementById("menuCategorias");
-
-    // =========================
-    // LOGIN
-    // =========================
-
-    const formulario = document.getElementById("formLogin");
-
-    if (formulario) {
-        formulario.addEventListener("submit", function (evento) {
-            evento.preventDefault();
-
-            const usuario = document.getElementById("usuario").value.trim();
-            const password = document.getElementById("password").value;
-            const mensaje = document.getElementById("mensajeLogin");
-
-            if (usuario === "admin" && password === "1234") {
-                localStorage.setItem("usuario", usuario);
-                window.location.assign("index.html");
-            } else if (mensaje) {
-                mensaje.textContent = "Usuario o contraseña incorrectos.";
-                mensaje.style.color = "red";
-            }
-        });
-    }
-
-    // =========================
-    // BOTÓN LOGIN / LOGOUT
-    // =========================
-
-    const botonLogin = document.getElementById("botonLogin");
-
-    if (botonLogin) {
-        function actualizarBotonLogin() {
-            const usuarioGuardado = localStorage.getItem("usuario");
-
-            if (usuarioGuardado) {
-                botonLogin.textContent = usuarioGuardado;
-                botonLogin.onclick = function () {
-                    if (confirm("¿Quieres cerrar sesión?")) {
-                        localStorage.removeItem("usuario");
-                        window.location.reload();
-                    }
-                };
-            } else {
-                botonLogin.textContent = "Log in";
-                botonLogin.onclick = function () {
-                    window.location.href = "login.html";
-                };
-            }
-        }
-
-        actualizarBotonLogin();
-    }
-
-    // =========================
     // CARRUSEL
     // =========================
 
@@ -105,146 +42,123 @@ document.addEventListener("DOMContentLoaded", function () {
         }
     }
 
-    // =========================
-    // MENÚ DESPLEGABLE
-    // =========================
 
-    if (menuButton && menuCategorias) {
-        menuButton.addEventListener("click", function () {
-            const estaCerrado = menuCategorias.hidden;
+    // Consulta AJAX per carregar productes per categoria
+    const llista = document.getElementById("product-list");
 
-            menuCategorias.hidden = !estaCerrado;
-            menuButton.setAttribute("aria-expanded", String(estaCerrado));
+    if (llista) {
+        // Un sol listener per a tot el contingut de #product-list (delegació d'events).
+        // Funciona amb elements afegits després per fetch (productes, detall, botons).
+        llista.addEventListener("click", function (e) {
 
-            console.log("Menú:", estaCerrado ? "abierto" : "cerrado");
+            // 1. Clic en una categoria -> carregar els seus productes
+            const enllac = e.target.closest(".link-categoria");
+            if (enllac) {
+                e.preventDefault(); // Evitem que l'enllaç recarregui la pàgina
+                carregarProductes(enllac.dataset.categoria);
+                return;
+            }
+
+            // 2. Clic al botó "Afegir a la cistella" (de moment només el mostrem per consola)
+            //    Es comprova abans que .producte per si algun dia el botó està dins d'una targeta.
+            const boto = e.target.closest(".afegir-cistella");
+            if (boto) {
+                console.log("Afegir a la cistella el producte", boto.dataset.id);
+                return;
+            }
+
+            // 3. Clic al botó "Tornar" -> tornar a la llista de la categoria actual
+            if (e.target.closest(".tornar")) {
+                carregarProductes(categoriaActual);
+                return;
+            }
+
+            // 4. Clic en un producte de la llista -> carregar el seu detall
+            const producte = e.target.closest(".producte");
+            if (producte) {
+                carregarDetall(producte.dataset.id);
+                return;
+            }
         });
-    } else {
-        console.error("No se encuentra menuButton o menuCategorias");
     }
-
-    // =========================
-    // CARGAR PRODUCTOS
-    // =========================
-
-    async function cargarProductos(idCategoria) {
-        if (!productosContainer) return;
-
-        productosContainer.textContent = "Cargando productos...";
-
-        try {
-            const respuesta = await fetch(
-                "php/productesCategoria.php?id_categoria=" +
-                encodeURIComponent(idCategoria)
-            );
-
-            if (!respuesta.ok) {
-                throw new Error("Error HTTP: " + respuesta.status);
-            }
-
-            const productos = await respuesta.json();
-
-            productosContainer.replaceChildren();
-
-            if (!Array.isArray(productos) || productos.length === 0) {
-                productosContainer.textContent =
-                    "No hay productos en esta categoría.";
-                return;
-            }
-
-            productos.forEach(function (producto) {
-                const articulo = document.createElement("article");
-                articulo.className = "prod1";
-
-                const titulo = document.createElement("h3");
-                titulo.textContent = producto.nom;
-
-                const precio = document.createElement("p");
-                const valorPrecio = Number(producto.preu);
-
-                precio.textContent = Number.isFinite(valorPrecio)
-                    ? valorPrecio.toFixed(2) + " €"
-                    : "Precio no disponible";
-
-                articulo.append(titulo, precio);
-                productosContainer.appendChild(articulo);
-            });
-
-        } catch (error) {
-            console.error("Error al cargar productos:", error);
-
-            productosContainer.textContent =
-                "No se pudieron cargar los productos.";
-        }
-    }
-
-    // =========================
-    // CARGAR CATEGORÍAS
-    // =========================
-
-    async function cargarCategorias() {
-        if (!categoriasContainer) 
-        {
-            console.warn("No existe el contenedor #categories");
-            return;
-        }
-
-        try
-        {
-            const respuesta = await fetch("php/categories.php");
-
-            if (!respuesta.ok) {
-                throw new Error("Error HTTP: " + respuesta.status);
-            }
-
-            const categorias = await respuesta.json();
-
-            if (!Array.isArray(categorias)) {
-                throw new Error("La respuesta no es una lista de categorías");
-            }
-
-            categoriasContainer.replaceChildren();
-
-            if (categorias.length === 0) {
-                categoriasContainer.textContent =
-                    "No hay categorías disponibles.";
-                return;
-            }
-
-            categorias.forEach(function (categoria) {
-                const boton = document.createElement("button");
-
-                boton.type = "button";
-                boton.textContent = categoria.nom;
-
-                boton.addEventListener("click", function () {
-
-                    // Cerrar el desplegable
-                    if (menuCategorias && menuButton) {
-                        menuCategorias.hidden = true;
-                        menuButton.setAttribute("aria-expanded", "false");
-                    }
-
-                    // Cambiar el título
-                    if (tituloProductos) {
-                        tituloProductos.textContent = categoria.nom;
-                    }
-
-                    // Mostrar los productos
-                    cargarProductos(categoria.id_categoria);
-                });
-
-                categoriasContainer.appendChild(boton);
-            });
-
-            console.log("Categorías cargadas:", categorias.length);
-
-        } catch (error) {
-            console.error("Error al cargar categorías:", error);
-
-            categoriasContainer.textContent = "No se pudieron cargar las categorías.";
-        }
-    }
-
-    cargarCategorias();
 
 });
+
+// Categoria que s'està mostrant ara mateix (la fa servir el botó "Tornar").
+// Si la pàgina s'ha carregat directament (index.php?accio=llistar-productes&categoria=X),
+// la llegim del títol que ha posat el PHP.
+let categoriaActual = null;
+
+document.addEventListener("DOMContentLoaded", function () {
+    const titol = document.getElementById("tituloProductos");
+    if (titol && new URLSearchParams(location.search).has("categoria")) {
+        categoriaActual = titol.textContent.trim();
+    }
+});
+
+function toggleMenu() 
+{
+    const menu = document.getElementById("menuCategorias");
+    const button = document.getElementById("menuButton");
+
+    const abierto = button.getAttribute("aria-expanded") === "true";
+
+    menu.hidden = abierto;
+    button.setAttribute("aria-expanded", !abierto);
+}
+
+async function carregarProductes(categoria) {
+    const llista = document.getElementById("product-list");
+    const titol = document.getElementById("tituloProductos");
+
+    llista.textContent = "Carregant productes...";
+
+    try {
+        const response = await fetch(
+            "index.php?accio=ajax-productes&categoria=" + encodeURIComponent(categoria)
+        );
+
+        if (!response.ok) {
+            throw new Error("Error HTTP " + response.status);
+        }
+
+        const html = await response.text();
+        llista.innerHTML = html;
+        if (titol) titol.textContent = categoria;
+
+        // Recordem la categoria per poder-hi tornar des del detall
+        categoriaActual = categoria;
+
+    } catch (error) {
+        console.error(error);
+        llista.textContent = "Error al carregar els productes.";
+    }
+}
+
+/**
+ * Demana al servidor el detall d'un producte i el mostra a #product-list.
+ * El servidor (index.php?accio=ajax-detall-producte) retorna un fragment HTML
+ * generat per la vista views/detall_producte.php.
+ */
+async function carregarDetall(id) {
+    const llista = document.getElementById("product-list");
+
+    llista.textContent = "Carregant producte...";
+
+    try {
+        const response = await fetch(
+            "index.php?accio=ajax-detall-producte&id=" + encodeURIComponent(id)
+        );
+
+        // Si el producte no existeix, el controlador retorna 404 -> response.ok és false
+        if (!response.ok) {
+            throw new Error("Error HTTP " + response.status);
+        }
+
+        llista.innerHTML = await response.text();
+
+    } catch (error) {
+        console.error(error);
+        llista.textContent = "Error al carregar el producte.";
+    }
+}

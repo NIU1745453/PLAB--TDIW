@@ -1,0 +1,39 @@
+services:
+  web:
+    build: .
+    ports:
+      - "8081:80"
+    environment:
+      DB_HOST: db
+      DB_NAME: ${DB_NAME:-tdiw-db}
+      DB_USER: ${DB_USER:-tdiw-a13}
+      DB_PASSWORD: ${DB_PASSWORD:-tdiw}
+    volumes:
+      # Live-reload: edits on the host are served immediately
+      - ./:/var/www/html
+    depends_on:
+      db:
+        condition: service_healthy
+
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: ${DB_NAME:-tdiw-db}
+      POSTGRES_USER: ${DB_USER:-tdiw-a13}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-tdiw}
+    ports:
+      - "5433:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+      # Run only on first start (empty volume), in alphabetical order
+      - ./database/db_schema.sql:/docker-entrypoint-initdb.d/01_schema.sql:ro
+      - ./database/views.sql:/docker-entrypoint-initdb.d/02_views.sql:ro
+      - ./database/test_data.sql:/docker-entrypoint-initdb.d/03_test_data.sql:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 3s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  pgdata:

@@ -158,6 +158,15 @@ header h1 a {
     object-fit: cover;
 }
 
+.imatge-producte {
+    width: 300px;
+    height: 300px;
+    flex-shrink: 0;
+    background-color: #56677f;
+    border-radius: 15px;
+    overflow: hidden;
+}
+
 .img {
     width: 300px;
     height: 300px;
