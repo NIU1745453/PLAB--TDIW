@@ -31,4 +31,34 @@
 
         return true;
     }
+
+    function get_usuari_per_id($id_user)
+    {
+        $conn = conectaBd();
+
+        $sql = 'SELECT id_user,nom,cognoms,email,codi_postal,direccio,aniversari FROM usuari WHERE id_user = $1';
+
+        $result = pg_query_params($conn, $sql, [$id_user]);
+
+        if ($result === false) {
+            return null;
+        }
+
+        return pg_fetch_assoc($result) ?: false;
+    }
+
+    function get_usuari_per_email_i_password($email, $password)
+    {
+        $usuari = get_usuari_per_email($email);
+
+        if ($usuari === null) {
+            return null;
+        }
+
+        if (!$usuari || !password_verify($password, $usuari['password'])) {
+            return false;
+        }
+
+        return $usuari;
+    }
 ?>

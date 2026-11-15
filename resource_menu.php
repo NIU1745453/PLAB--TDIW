@@ -17,8 +17,7 @@
                 type="button"
                 aria-label="Mostrar categorías"
                 aria-expanded="false"
-                aria-controls="menuCategorias"
-                onclick="toggleMenu()">
+                aria-controls="menuCategorias">
                 ☰
             </button>
 

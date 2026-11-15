@@ -3,6 +3,46 @@ document.addEventListener("DOMContentLoaded", function () {
     console.log("JavaScript cargado correctamente");
 
     // =========================
+    // MENÚ
+    // =========================
+
+    const menuButton = document.getElementById("menuButton");
+
+    if (menuButton) {
+        menuButton.addEventListener("click", toggleMenu);
+    }
+
+    // =========================
+    // LOGIN (FETCH)
+    // =========================
+
+    // El listener va al contenidor i no al formulari, perquè el formulari
+    // es substitueix per l'HTML que retorna el servidor després de cada enviament.
+    const login = document.getElementById("login");
+
+    if (login) {
+        login.addEventListener("submit", function (e) {
+            e.preventDefault(); // Evitem l'enviament normal (i la recàrrega)
+            enviarLogin(e.target);
+        });
+    }
+
+    // =========================
+    // REGISTRE (FETCH)
+    // =========================
+
+    // El listener va al contenidor i no al formulari, perquè el formulari
+    // es substitueix per l'HTML que retorna el servidor després de cada enviament.
+    const registre = document.getElementById("registre");
+
+    if (registre) {
+        registre.addEventListener("submit", function (e) {
+            e.preventDefault(); // Evitem l'enviament normal (i la recàrrega)
+            enviarRegistre(e.target);
+        });
+    }
+
+    // =========================
     // CARRUSEL
     // =========================
 
@@ -160,5 +200,72 @@ async function carregarDetall(id) {
     } catch (error) {
         console.error(error);
         llista.textContent = "Error al carregar el producte.";
+    }
+}
+
+/**
+ * Envia el formulari de registre amb fetch (POST) i mostra la resposta.
+ * El servidor (index.php?accio=ajax-registre) retorna el fragment HTML de
+ * views/registre.php: el formulari amb errors o el missatge "Compte creat".
+ */
+async function enviarRegistre(form) {
+    const contenidor = document.getElementById("registre");
+    const boto = form.querySelector("button[type=submit]");
+
+    // Evitem que un doble clic enviï el formulari dues vegades
+    boto.disabled = true;
+
+    try {
+        // FormData agafa tots els inputs amb "name". No posem Content-Type:
+        // el navegador el posa sol (amb el "boundary" que necessita PHP).
+        const response = await fetch("index.php?accio=ajax-registre", {
+            method: "POST",
+            body: new FormData(form)
+        });
+
+        if (!response.ok) {
+            throw new Error("Error HTTP " + response.status);
+        }
+
+        // Substituïm el formulari per la resposta (errors o "Compte creat")
+        contenidor.innerHTML = await response.text();
+
+    } catch (error) {
+        // Mantenim el formulari perquè l'usuari no perdi el que ha escrit
+        console.error(error);
+        boto.disabled = false;
+        alert("Error de connexió. Torna-ho a provar.");
+    }
+}
+
+/**
+ * Envia el formulari de login amb fetch (POST) i mostra la resposta.
+ * El servidor (index.php?accio=ajax-login) retorna el fragment HTML de
+ * views/login.php: el formulari amb errors o el missatge "Login correcte".
+ */
+async function enviarLogin(form) {
+    const contenidor = document.getElementById("login");
+    const boto = form.querySelector("button[type=submit]");
+    
+    // Evitem que un doble clic enviï el formulari dues vegades
+    boto.disabled = true;
+    try {
+        const response = await fetch("index.php?accio=ajax-login", {
+            method: "POST",
+            body: new FormData(form)
+        });
+
+        if (!response.ok) {
+            throw new Error("Error HTTP " + response.status);
+        }
+
+        // Substituïm el formulari per la resposta (errors o "Login correcte")
+        contenidor.innerHTML = await response.text();
+
+    } catch (error) {
+        // Mantenim el formulari perquè l'usuari no perdi el que ha escrit
+        console.error(error);
+        boto.disabled = false;
+        alert("Error de connexió. Torna-ho a provar.");
     }
 }

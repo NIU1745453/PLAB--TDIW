@@ -191,7 +191,7 @@ footer {
 }
 
 /* Login */
-.login-container {
+.login-container,.registre-container {
     min-height: calc(100vh - 45px);
     display: flex;
     justify-content: center;

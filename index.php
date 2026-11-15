@@ -1,4 +1,7 @@
 <?php
+    ob_start();
+    session_start();
+    
     $accio = $_GET['accio'] ?? NULL;
 
     $ajax = NULL;     // fragment for fetch (no menu or footer)
@@ -11,6 +14,12 @@
             break;
         case 'ajax-detall-producte':
             $ajax = 'controller/detall_producte.php';
+            break;
+        case 'ajax-registre':
+            $ajax = 'controller/registre.php';
+            break;
+        case 'ajax-login':
+            $ajax = 'controller/login.php';
             break;
 
         // --- Normal pages ---
