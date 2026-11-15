@@ -8,7 +8,7 @@
             return [];
         }
 
-        $conn = conectaBd();
+        $conn = connectaBd();
         
         $sql = 'SELECT p.id_producte as id_producte, p.nom as nom, p.preu as preu, p.descripcio as descripcio, p.imatge as imatge
                 FROM producte as p, categoria as c
@@ -28,7 +28,7 @@
     }
     
     function get_producte($id) {
-        $conn = conectaBd();
+        $conn = connectaBd();
         $sql = 'SELECT id_producte, nom, preu, descripcio, imatge
                 FROM producte
                 WHERE id_producte = $1 AND actiu = TRUE';

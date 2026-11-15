@@ -1,3 +1,8 @@
+
+/* =====================================
+   ESTILOS GENERALES
+===================================== */
+
 * {
     box-sizing: border-box;
 }
@@ -7,6 +12,11 @@ body {
     background-color: #f1f2f5;
     font-family: Arial, sans-serif;
 }
+
+
+/* =====================================
+   HEADER
+===================================== */
 
 header {
     min-height: 45px;
@@ -30,7 +40,11 @@ header h1 a {
     text-decoration: none;
 }
 
-/* Buscador y login */
+
+/* =====================================
+   BUSCADOR Y LOGIN
+===================================== */
+
 .buscador {
     margin-left: auto;
     display: flex;
@@ -56,6 +70,11 @@ header h1 a {
     border-radius: 5px;
     padding: 5px;
 }
+
+
+/* =====================================
+   CARRUSEL
+===================================== */
 
 .carrusel {
     height: 450px;
@@ -100,11 +119,15 @@ header h1 a {
     right: 15px;
 }
 
+
+/* =====================================
+   CONTENIDO
+===================================== */
+
 .contingut {
     background-color: #fae9dc;
     padding: 27px 8%;
 }
-
 
 .contingut h2 {
     margin: 0 0 25px;
@@ -119,6 +142,11 @@ header h1 a {
     font-size: 18px;
     font-weight: normal;
 }
+
+
+/* =====================================
+   LISTADO DE PRODUCTOS
+===================================== */
 
 .productes {
     display: grid;
@@ -158,6 +186,11 @@ header h1 a {
     object-fit: cover;
 }
 
+
+/* =====================================
+   IMAGEN DEL PRODUCTO
+===================================== */
+
 .imatge-producte {
     width: 300px;
     height: 300px;
@@ -183,6 +216,11 @@ header h1 a {
     display: block;
 }
 
+
+/* =====================================
+   FOOTER
+===================================== */
+
 footer {
     min-height: 150px;
     background-color: #1d1c2b;
@@ -190,8 +228,12 @@ footer {
     color: white;
 }
 
-/* Login */
-.login-container,.registre-container {
+
+/* =====================================
+   LOGIN
+===================================== */
+
+.login-container {
     min-height: calc(100vh - 45px);
     display: flex;
     justify-content: center;
@@ -250,12 +292,18 @@ footer {
     text-align: center;
 }
 
+
+/* =====================================
+   MENÚ DE CATEGORÍAS
+===================================== */
+
 .menu {
     position: relative;
     margin-right: 10px;
     flex-shrink: 0;
 }
 
+/* Botón del índice */
 #menuButton {
     display: block;
     min-height: 35px;
@@ -308,7 +356,9 @@ footer {
     gap: 6px;
 }
 
-#categories button {
+#categories button,
+#categories a,
+#categories .link-categoria {
     display: block;
     width: 100%;
     padding: 10px;
@@ -317,9 +367,142 @@ footer {
     color: #1d1c2b;
     border: none;
     border-radius: 4px;
+    text-decoration: none;
+    font-size: 15px;
     cursor: pointer;
+    transition: background-color 0.2s;
 }
 
-#categories button:hover {
+#categories button:hover,
+#categories a:hover,
+#categories .link-categoria:hover {
     background-color: #fae9dc;
+}
+
+
+/* =====================================
+   PRODUCTOS CLICABLES
+===================================== */
+
+#product-list {
+    width: 100%;
+    min-width: 0;
+}
+
+/* Tarjetas de productos */
+.productes article,
+.producte {
+    cursor: pointer;
+    border-radius: 12px;
+    padding: 12px;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+/* Efecto al pasar el ratón */
+.productes article:hover,
+.producte:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 4px 15px rgba(29, 28, 43, 0.15);
+}
+
+/* Imágenes de los productos */
+.productes article .img,
+.producte .img {
+    overflow: hidden;
+    border-radius: 12px;
+    background-color: #56677f;
+}
+
+.productes article .img img,
+.producte .img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+}
+
+
+/* =====================================
+   DETALLE DEL PRODUCTO
+===================================== */
+
+.imatge-producte {
+    width: 300px;
+    height: 300px;
+    flex-shrink: 0;
+    overflow: hidden;
+    border-radius: 15px;
+    background-color: #56677f;
+}
+
+.imatge-producte img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Botón volver y añadir a cesta */
+.tornar,
+.afegir-cistella {
+    padding: 10px 18px;
+    border: none;
+    border-radius: 6px;
+    background-color: #b98b61;
+    color: white;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.tornar:hover,
+.afegir-cistella:hover {
+    background-color: #966b45;
+}
+
+
+/* =====================================
+   ACCESIBILIDAD
+===================================== */
+
+.producte:focus-visible,
+#menuButton:focus-visible,
+#categories button:focus-visible,
+#categories a:focus-visible {
+    outline: 3px solid #b98b61;
+    outline-offset: 3px;
+}
+
+
+/* =====================================
+   ADAPTACIÓN A MÓVILES
+===================================== */
+
+@media (max-width: 700px) {
+
+    .productes {
+        grid-template-columns: 1fr;
+    }
+
+    .productes article,
+    .producte {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .productes article .img,
+    .producte .img {
+        width: 100%;
+        max-width: 300px;
+        height: 220px;
+        flex-basis: auto;
+    }
+
+    .imatge-producte {
+        width: 100%;
+        max-width: 300px;
+        height: 240px;
+    }
+
+    .menu-categorias {
+        width: min(230px, calc(100vw - 30px));
+    }
 }
