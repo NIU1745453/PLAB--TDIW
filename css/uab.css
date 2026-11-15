@@ -506,3 +506,11 @@ footer {
         width: min(230px, calc(100vw - 30px));
     }
 }
+
+.detall-producte img {
+    width: 450px;
+    height: 450px;
+    object-fit: cover;
+    border-radius: 30px;
+    display: block;
+}
