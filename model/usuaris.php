@@ -3,7 +3,7 @@
 
     function get_usuari_per_email($email)
     {
-        $conn = conectaBd();
+        $conn = connectaBd();
 
         $sql = 'SELECT id_user,nom,cognoms,email,password FROM usuari WHERE email = $1';
 
@@ -18,7 +18,7 @@
 
     function registrar_usuari($nom, $cognoms, $email, $password_hash, $codi_postal, $direccio, $aniversari)
     {
-        $conn = conectaBd();
+        $conn = connectaBd();
 
         $sql = 'INSERT INTO usuari (nom, cognoms, email, password, codi_postal, direccio, aniversari) VALUES ($1, $2, $3, $4, $5, $6, $7)';
 

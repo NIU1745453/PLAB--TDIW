@@ -6,11 +6,11 @@ document.addEventListener("DOMContentLoaded", function () {
     // MENÚ
     // =========================
 
-    const menuButton = document.getElementById("menuButton");
-
-    if (menuButton) {
-        menuButton.addEventListener("click", toggleMenu);
-    }
+    $("#menuButton").on("click", function () {
+        const isOpen = $(this).attr("aria-expanded") === "true";
+        $("#menuCategorias").prop("hidden", isOpen);
+        $(this).attr("aria-expanded", String(!isOpen));
+    });
 
     // =========================
     // LOGIN (FETCH)
@@ -135,17 +135,6 @@ document.addEventListener("DOMContentLoaded", function () {
         categoriaActual = titol.textContent.trim();
     }
 });
-
-function toggleMenu() 
-{
-    const menu = document.getElementById("menuCategorias");
-    const button = document.getElementById("menuButton");
-
-    const abierto = button.getAttribute("aria-expanded") === "true";
-
-    menu.hidden = abierto;
-    button.setAttribute("aria-expanded", !abierto);
-}
 
 async function carregarProductes(categoria) {
     const llista = document.getElementById("product-list");

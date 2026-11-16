@@ -2,7 +2,7 @@
 require_once __DIR__ . '/connectaBd.php';
 
 function get_categories() {
-        $conn = conectaBd();
+        $conn = connectaBd();
         $sql = 'SELECT id_categoria, nom, descripcio
                 FROM categoria
                 ORDER BY id_categoria';
